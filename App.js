@@ -20,9 +20,8 @@ export default class App extends Component {
           inactiveTintColor: 'gray',
           labelPosition:'beside-icon',
         }}>
-        <Tab.Screen name="Led" component={LedTurnOn} />
         <Tab.Screen name="Bluetooth" component={BluetoothConnection} />
-        
+        <Tab.Screen name="Led" component={LedTurnOn} />
       </Tab.Navigator>
     </NavigationContainer>
     )

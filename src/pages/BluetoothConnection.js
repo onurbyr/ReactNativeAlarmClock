@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  FlatList,
-  Switch,
-  TouchableOpacity,
-  ToastAndroid
-} from 'react-native';
+import {StyleSheet, Text, View, Button, FlatList, Switch, TouchableOpacity, ToastAndroid} from 'react-native';
 var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial'
 
@@ -24,7 +14,7 @@ export default class BluetoothConnection extends Component {
       connected: false,
     }
   }
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
  
     Promise.all([
       BluetoothSerial.isEnabled(),
@@ -110,20 +100,13 @@ export default class BluetoothConnection extends Component {
       .catch((err) => console.log(err.message))
     }
   }
-  toggleSwitch(){
-    BluetoothSerial.write("#FF0000")
-    .then((res) => {
-      console.log(res);
-      console.log('Successfuly wrote to device')
-      this.setState({ connected: true })
-    })
-    .catch((err) => console.log(err.message))
-  }
+
+  
   render() {
     return (
       <View style={styles.container}>
       <View style={styles.toolbar}>
-      <Text style={styles.toolbarTitle}>Bluetooth Device List</Text>
+      <Text style={styles.toolbarTitle}>Bluetooth Cihaz Listesi</Text>
       <View style={styles.toolbarButton}>
         <Switch
           value={this.state.isEnabled}
@@ -135,8 +118,8 @@ export default class BluetoothConnection extends Component {
 
 
       onPress={this.discoverAvailableDevices.bind(this)}
-      title="Scan for Devices"
-      color="#841584"
+      title="CİHAZLARI TARA"
+      color="#1171ba"
      />
 
     <FlatList
@@ -144,11 +127,6 @@ export default class BluetoothConnection extends Component {
     data={this.state.devices}
     keyExtractor={item => item.id}
     renderItem={(item) => this._renderItem(item)}
-    />
-    <Button
-    onPress={this.toggleSwitch.bind(this)}
-    title="Switch(On/Off)"
-    color="#841584"
     />
   </View>   
     );
@@ -164,20 +142,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   toolbar:{
-    paddingTop:30,
-    paddingBottom:30,
+    paddingTop:15,
+    paddingBottom:15,
     flexDirection:'row'
   },
   toolbarButton:{
     width: 50,
-    marginTop: 8,
+    marginTop: 4,
   },
   toolbarTitle:{
     textAlign:'center',
     fontWeight:'bold',
     fontSize: 20,
     flex:1,
-    marginTop:6
+    marginTop:3
   },
   deviceName: {
     fontSize: 17,
