@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Button } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+
+import Icon from 'react-native-vector-icons/Entypo';
 
 
 
 export default class LedTurnOn extends Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Settings!</Text>
-                    
-                <Button title="Go to Home" onPress={() => this.props.navigation.navigate('Bluetooth')} />
+            <View style={styles.container}>
+                
+                <TouchableOpacity>
+                    <Icon name="light-bulb" type="Entypo" size={100} color="#ebc334" />
+                </TouchableOpacity>
             </View>
+
         )
     }
 }
@@ -20,5 +24,10 @@ export default class LedTurnOn extends Component {
 
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    }
     
 })

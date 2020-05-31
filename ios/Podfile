@@ -81,6 +81,8 @@ target 'ArduinoLed' do
 
   pod 'react-native-voice', :path => '../node_modules/react-native-voice'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'ArduinoLedTests' do
     inherit! :complete
     # Pods for testing
