@@ -25,7 +25,7 @@ export default class LedTurnOn extends Component {
             
             <SafeAreaView style={styles.container}>
                 <Text style={styles.connectStatus}>
-                    Bağlandı
+                    {this.props.route.params.statusConnect}
                 </Text>
                 <LinearGradient
                 start={{x: 0, y: 0}} 

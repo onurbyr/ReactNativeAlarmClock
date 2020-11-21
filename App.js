@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from 'react-native'
 import BluetoothConnection from './src/pages/BluetoothConnection'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LedTurnOn from './src/pages/LedTurnOn'
+import LedOptions from './src/pages/LedOptions'
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
@@ -33,7 +33,8 @@ export default class App extends Component {
         />
         <Tab.Screen 
         name="Led"
-        component={LedTurnOn}
+        component={LedOptions}
+        initialParams={{ statusConnect: "Bağlı Değil" }}
         options={{
             tabBarIcon: ({ color, size }) => (
               <IconEntypo name="light-bulb" color={color} size={size} />
