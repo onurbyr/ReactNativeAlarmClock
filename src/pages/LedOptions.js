@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity,SafeAreaView } from 'react-native'
 import BluetoothSerial from 'react-native-bluetooth-serial'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -10,22 +10,23 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 
-export default class LedTurnOn extends Component {
-    toggleSwitch(){
-        BluetoothSerial.write('T')
-        .then((res) => {
-          console.log(res);
-          console.log('Successfuly wrote to device')
-          this.setState({ connected: true })
-        })
-        .catch((err) => console.log(err.message))
-      }
-    render() {
+const toggleSwitch =()=>{
+    BluetoothSerial.write('T')
+    .then((res) => {
+      console.log(res);
+      console.log('Successfuly wrote to device')
+      this.setState({ connected: true })
+    })
+    .catch((err) => console.log(err.message))
+}
+
+
+function LedOptions({route}) {
+    const { statusConnect } = route.params;
         return (
-            
             <SafeAreaView style={styles.container}>
-                <Text style={styles.connectStatus}>
-                    {this.props.route.params.statusConnect}
+                <Text style={styles.connectStatus}>   
+                {statusConnect}        
                 </Text>
                 <LinearGradient
                 start={{x: 0, y: 0}} 
@@ -34,7 +35,8 @@ export default class LedTurnOn extends Component {
                 style={styles.header}>
                 <TouchableOpacity 
                 style={styles.icon}
-                onPress={this.toggleSwitch.bind(this)}>
+                onPress={toggleSwitch}
+                >
                     <IconAntDesign name="poweroff" type="AntDesign" size={50} color="#ebc334" />
                     
                 </TouchableOpacity>
@@ -83,11 +85,7 @@ export default class LedTurnOn extends Component {
             </SafeAreaView>
 
         )
-    }
 }
-
-
-
 
 
 const styles = StyleSheet.create({
@@ -155,3 +153,6 @@ const styles = StyleSheet.create({
     }
     
 })
+
+
+export default LedOptions;
