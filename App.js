@@ -15,7 +15,8 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
     return (
-        <Tab.Navigator         tabBarOptions={{
+        <Tab.Navigator
+            tabBarOptions={{
             activeTintColor: 'tomato',
             inactiveTintColor: 'gray',
             labelPosition:'beside-icon',

@@ -52,7 +52,7 @@ export default class BluetoothConnection extends Component {
     BluetoothSerial.connect(device.id)
     .then((res) => {
       console.log(`Connected to device ${device.name}`);
-      this.props.navigation.navigate('Led', {  
+      this.props.navigation.navigate('LedSettings', {  
         statusConnect: 'Bağlandı',  
     })  
       
