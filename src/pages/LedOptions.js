@@ -154,13 +154,12 @@ export default function LedOptions() {
       <HomeStack.Navigator>
         <HomeStack.Screen
          name="LedSettings"
-         options={({ route }) => ({ 
-             title: route.params.statusConnect,
+         options={() => ({ 
+             title: 'Led Ayarları',
              headerTitleAlign: 'center',
              headerTintColor: '#656262',
              })}
-         component={LedSettings}
-         initialParams={{ statusConnect: "Bağlı Değil" }} />
+         component={LedSettings}/>
         <HomeStack.Screen name="LedColor" options={{ title: 'Renk Ayarla' }}  component={LedColor} />
       </HomeStack.Navigator>
     );

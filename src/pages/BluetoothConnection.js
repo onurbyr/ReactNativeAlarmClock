@@ -52,11 +52,9 @@ export default class BluetoothConnection extends Component {
     BluetoothSerial.connect(device.id)
     .then((res) => {
       console.log(`Connected to device ${device.name}`);
-      this.props.navigation.navigate('LedSettings', {  
-        statusConnect: 'Bağlandı',  
-    })  
+      this.props.navigation.navigate('Led')  
       
-      ToastAndroid.show(`Connected to device ${device.name}`, ToastAndroid.SHORT);
+      ToastAndroid.show(`Cihaza Bağlanıldı ${device.name}`, ToastAndroid.SHORT);
     })
     .catch((err) => console.log((err.message)))
   }

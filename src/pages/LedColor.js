@@ -1,6 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import { TriangleColorPicker } from 'react-native-color-picker'
+import BluetoothSerial from 'react-native-bluetooth-serial'
+
+
+function sendData(value){
+    BluetoothSerial.write(value)
+    .then((res) => {
+      console.log(res);
+      console.log('Successfuly wrote to device')
+    })
+    .catch((err) => console.log(err.message))
+}
+
 
 
 
@@ -18,6 +30,15 @@ function convertHex(hexCode){
     return [r,g,b];
 }
 
+function applyColor(color){
+    var rgb=convertHex(color);
+    const r=rgb[0];
+    const g=rgb[1];
+    const b=rgb[2];
+    alert(r);
+    sendData('252');
+}
+
 
  function LedColor () {     
     return(
@@ -26,12 +47,7 @@ function convertHex(hexCode){
         <TriangleColorPicker
         //   onColorSelected={color => alert(`Color selected: ${color}`)}
           onColorSelected={color => 
-            {var rgb=convertHex(color);
-                const r=rgb[0];
-                const g=rgb[1];
-                const b=rgb[2];
-                //alert(r);
-            }
+            {applyColor(color)}
         }
           style={{flex: 1}}
         />

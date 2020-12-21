@@ -33,7 +33,6 @@ function MyTabs() {
           <Tab.Screen 
           name="Led"
           component={LedOptions}
-          initialParams={{ statusConnect: "Bağlı Değil" }}
           options={{
               tabBarIcon: ({ color, size }) => (
                 <IconEntypo name="light-bulb" color={color} size={size} />
