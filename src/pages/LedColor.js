@@ -32,11 +32,8 @@ function convertHex(hexCode){
 
 function applyColor(color){
     var rgb=convertHex(color);
-    const r=rgb[0];
-    const g=rgb[1];
-    const b=rgb[2];
-    alert(r);
-    sendData('252');
+    var rgbs=rgb.toString();
+    sendData(rgbs);
 }
 
 
