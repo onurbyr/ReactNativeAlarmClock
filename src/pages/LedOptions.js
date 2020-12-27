@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity,SafeAreaView } from 'react-native'
 import BluetoothSerial from 'react-native-bluetooth-serial'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -11,18 +11,34 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LedColor from './LedColor'
 
 
-const toggleSwitch =()=>{
-    BluetoothSerial.write('T')
+function sendData(value){
+    BluetoothSerial.write(value)
     .then((res) => {
       console.log(res);
       console.log('Successfuly wrote to device')
-      this.setState({ connected: true })
     })
     .catch((err) => console.log(err.message))
 }
 
 
+
+
+function toggleSwitch(isOn,setIsOn) {
+    if (!isOn)
+    {
+        sendData("ON)")
+        setIsOn(isOn=true);
+    }
+    else if (isOn)
+    {
+        sendData("OFF)")
+        setIsOn(isOn=false);
+    }
+}
+
+
 function LedSettings({navigation}) {
+    const [isOn, setIsOn] = useState(false)
         return (
             <SafeAreaView style={styles.container}>
                 <LinearGradient
@@ -32,7 +48,7 @@ function LedSettings({navigation}) {
                 style={styles.header}>
                 <TouchableOpacity 
                 style={styles.icon}
-                onPress={toggleSwitch}
+                onPress={() => toggleSwitch(isOn,setIsOn)}
                 >
                     <IconAntDesign name="poweroff" type="AntDesign" size={50} color="#ebc334" />
                     
@@ -89,8 +105,7 @@ function LedSettings({navigation}) {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        //alignItems:'center',
-        //justifyContent:'center'
+        backgroundColor:'#F5FCFF'
     },
     header:{
         flex:1,
@@ -158,9 +173,10 @@ export default function LedOptions() {
              title: 'Led Ayarları',
              headerTitleAlign: 'center',
              headerTintColor: '#656262',
+
              })}
          component={LedSettings}/>
-        <HomeStack.Screen name="LedColor" options={{ title: 'Renk Ayarla' }}  component={LedColor} />
+        <HomeStack.Screen name="LedColor" options={{ title: 'Renk Ayarla',headerTintColor: '#656262' }}  component={LedColor} />
       </HomeStack.Navigator>
     );
   }

@@ -142,9 +142,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   toolbar:{
-    paddingTop:15,
-    paddingBottom:15,
-    flexDirection:'row'
+    paddingTop:13,
+    paddingBottom:13,
+    flexDirection:'row',
+    backgroundColor:'#FFFFFF'
   },
   toolbarButton:{
     width: 50,
@@ -152,8 +153,9 @@ const styles = StyleSheet.create({
   },
   toolbarTitle:{
     textAlign:'center',
+    fontSize: 19,
+    color:'#656262',
     fontWeight:'bold',
-    fontSize: 20,
     flex:1,
     marginTop:3
   },
