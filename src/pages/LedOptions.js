@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { createStackNavigator } from '@react-navigation/stack';
 import LedColor from './LedColor'
 import LedTimer from './LedTimer'
+import LedBrightness from './LedBrightness'
 
 
 function sendData(value){
@@ -76,7 +77,8 @@ function LedSettings({navigation}) {
                         <IconMaterialCommunityIcons name="camera-timer" size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Kapanma Süresi Belirle</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingsInside}>
+                    <TouchableOpacity style={styles.settingsInside}
+                    onPress={() => navigation.navigate('LedBrightness')}>
                         <IconMaterialIcons name="brightness-6" type="MaterialIcons" size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Parlaklık Ayarla</Text>
                     </TouchableOpacity>
@@ -180,6 +182,7 @@ export default function LedOptions() {
          component={LedSettings}/>
         <HomeStack.Screen name="LedColor" options={{ title: 'Renk Ayarla',headerTintColor: '#656262' }}  component={LedColor} />
         <HomeStack.Screen name="LedTimer" options={{ title: 'Kapanma Süresi Belirle',headerTintColor: '#656262' }}  component={LedTimer} />
+        <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
       </HomeStack.Navigator>
     );
   }
