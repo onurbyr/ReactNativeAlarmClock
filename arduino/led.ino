@@ -89,6 +89,7 @@ void loop() {
       {
          ledBrightness();
       }
+      //check brightness
       else if (Val==B2)
       {
          mySerial.print(brightness);
@@ -96,7 +97,8 @@ void loop() {
       else{
           commaIndex();
           lightRGB();  
-          RGB_Previous = Val;     
+          RGB_Previous = Val;
+          brightness=100;     
       }
 
       

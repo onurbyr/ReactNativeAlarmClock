@@ -39,7 +39,7 @@ function LedBrightness() {
             minimumTrackTintColor="#FED842"
             maximumTrackTintColor="red"
             // thumbTintColor={'#2D6C9C'}
-            thumbImage={require('../images/brightness.png')}
+            //thumbImage={require('../images/brightness.png')}
             value={brightness}
             onSlidingComplete={value =>setBrightness(value)}
             />  

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity,SafeAreaView } from 'react-native'
 import BluetoothSerial from 'react-native-bluetooth-serial'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -41,6 +41,29 @@ function toggleSwitch(isOn,setIsOn) {
 
 function LedSettings({navigation}) {
     const [isOn, setIsOn] = useState(false)
+    const [brightness,setBrightness] = useState(100);
+
+    //When focused to tab
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            sendData("B2)")
+            setTimeout(function()
+            {
+                BluetoothSerial.readFromDevice().then((data) => {
+    
+                    var br = ~~data;
+                    setBrightness(br)
+    
+                });
+            }, 500);
+
+        });
+    
+        return unsubscribe;
+      }, []);
+
+
+
         return (
             <SafeAreaView style={styles.container}>
                 <LinearGradient
@@ -60,7 +83,7 @@ function LedSettings({navigation}) {
                         Işığı Aç/Kapat
                     </Text>
                     <Text style={styles.brightnessText}>
-                        Parlaklık:%30
+                        Parlaklık:%{brightness}
                     </Text>
                     
                 </View>
