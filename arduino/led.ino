@@ -1,11 +1,12 @@
 #include <virtuabotixRTC.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(7,6); // RX,TX
+SoftwareSerial mySerial(8,7); // RX,TX
 
-const int G = 3;
-const int B = 4;  
-const int R = 5;
+const int R = 9;
+const int G = 10;
+const int B = 11;  
+
 
 String Val = ""; 
 String RGB_Previous = "255,255,255"; 
@@ -13,7 +14,7 @@ String ON = "ON";
 String OFF = "OFF"; 
 boolean Val_Completed = false;
 //RTC
-virtuabotixRTC myRTC(8, 9, 10);
+virtuabotixRTC myRTC(4, 5, 6);
 
 
 int offSec=-1;
@@ -26,8 +27,12 @@ int rvalue=0;
 int gvalue=0;
 int bvalue=0;
 
-
 String B2 = "B2"; 
+
+int fadebr = 0;
+int fadeAmount = 1;
+int fadecolor = R;
+boolean fadeMode = false;
  
 void setup() {
   pinMode (R, OUTPUT);
@@ -94,6 +99,11 @@ void loop() {
       {
          mySerial.print(brightness);
       }
+      //fadeeffect
+       else if (Val.charAt(0)=='f')
+      {
+         fadeEffect();
+      }
       else{
           commaIndex();
           lightRGB();  
@@ -103,7 +113,8 @@ void loop() {
 
       
       Val = "";
-      Val_Completed = false;      
+      Val_Completed = false;     
+
   }
 
 
@@ -195,6 +206,46 @@ void ledTimer(){
 
   }
 
+  void fadeEffect ()
+  {
+    
+    Val.remove(0,1);
+
+    if (Val=="r")
+    {
+      fadecolor=R;
+      analogWrite(G, 255);    
+      analogWrite(B, 255);   
+    }
+    else if (Val=="g")
+    {
+      fadecolor=G;
+      analogWrite(B, 255);    
+      analogWrite(R, 255);   
+      
+    }
+    else if (Val=="b")
+    {
+      fadecolor=B;
+      analogWrite(G, 255);    
+      analogWrite(R, 255); 
+    }
+    else 
+    {
+      int valfl=Val.toInt();
+      if (valfl>=1 && valfl<=10 )
+      {
+        fadeAmount=valfl;
+      }
+    }
+
+
+    fadeMode = true;
+
+   
+    
+  }
+
 
 
 
@@ -214,6 +265,23 @@ void ledTimer(){
       offHour=-1;
       offMin=-1;
       offSec=-1;
+    }
+    
+    if(fadeMode)
+    {
+      analogWrite(fadecolor, 255-(fadebr));
+      fadebr = fadebr + fadeAmount;
+      if (fadebr<5)
+      {
+        fadebr=5;
+        fadeAmount = -fadeAmount;
+      }
+      if (fadebr>250)
+      {
+        fadebr=250;
+        fadeAmount = -fadeAmount;
+      }
+      delay(30);
     }
     
     
@@ -243,6 +311,7 @@ void ledTimer(){
 
  
   void lightRGB(){ 
+    fadeMode = false;
     analogWrite(R, 255-rvalue);
     analogWrite(G, 255-gvalue);
     analogWrite(B, 255-bvalue);

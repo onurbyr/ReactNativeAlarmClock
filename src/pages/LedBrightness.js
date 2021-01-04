@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor: '#F5FCFF'
       },
       brText:{
           color:'#8D8B8B',

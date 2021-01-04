@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity,SafeAreaView } from 'react-native'
 import BluetoothSerial from 'react-native-bluetooth-serial'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LedColor from './LedColor'
 import LedTimer from './LedTimer'
 import LedBrightness from './LedBrightness'
+import LedFade from './LedFade'
 
 
 function sendData(value){
@@ -113,9 +114,10 @@ function LedSettings({navigation}) {
                         <IconFeather name="camera"  size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Renk Algıla</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingsInside}>
+                    <TouchableOpacity style={styles.settingsInside}
+                    onPress={() => navigation.navigate('LedFade')}>
                         <IconMaterialCommunityIcons name="light-switch"  size={35} color="#C63F7A" />
-                        <Text style={styles.settingsInsideText}>Aralıklı Yanma</Text>
+                        <Text style={styles.settingsInsideText}>Solma Efekti</Text>
                     </TouchableOpacity>
 
 
@@ -206,6 +208,7 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedColor" options={{ title: 'Renk Ayarla',headerTintColor: '#656262' }}  component={LedColor} />
         <HomeStack.Screen name="LedTimer" options={{ title: 'Kapanma Süresi Belirle',headerTintColor: '#656262' }}  component={LedTimer} />
         <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
+        <HomeStack.Screen name="LedFade" options={{ title: 'Solma Efekti',headerTintColor: '#656262' }}  component={LedFade} />
       </HomeStack.Navigator>
     );
   }
