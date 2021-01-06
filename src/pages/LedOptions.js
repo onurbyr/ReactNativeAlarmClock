@@ -7,12 +7,13 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator,TransitionPresets } from '@react-navigation/stack';
 import LedColor from './LedColor'
 import LedTimer from './LedTimer'
 import LedBrightness from './LedBrightness'
 import LedFade from './LedFade'
 import LedModes from './LedModes'
+import listdata from '../../listdata.js'  
 
 
 function sendData(value){
@@ -211,7 +212,17 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedTimer" options={{ title: 'Kapanma Süresi Belirle',headerTintColor: '#656262' }}  component={LedTimer} />
         <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
         <HomeStack.Screen name="LedFade" options={{ title: 'Solma Efekti',headerTintColor: '#656262' }}  component={LedFade} />
-        <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262' }}  component={LedModes} />
+        <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262'}}  component={LedModes} />
+        {/* DeleteLater */}
+        <HomeStack.Screen 
+        options={{
+        gestureEnabled:true,
+        gestureDirection:"horizontal",
+        ...TransitionPresets.SlideFromRightIOS
+        }}
+        name="ListData" component={listdata} />  
+         {/* DeleteLater */}
+       
       </HomeStack.Navigator>
     );
   }
