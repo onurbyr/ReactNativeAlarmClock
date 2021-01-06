@@ -5757,6 +5757,11 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.8.0.tgz"
   "version" "2.8.0"
 
+"react-native-sqlite-storage@^5.0.0":
+  "integrity" "sha512-c1Joq3/tO1nmIcP8SkRZNolPSbfvY8uZg5lXse0TmjIPC0qHVbk96IMvWGyly1TmYCIpxpuDRc0/xCffDbYIvg=="
+  "resolved" "https://registry.npmjs.org/react-native-sqlite-storage/-/react-native-sqlite-storage-5.0.0.tgz"
+  "version" "5.0.0"
+
 "react-native-vector-icons@^6.6.0":
   "integrity" "sha512-MImKVx8JEvVVBnaShMr7/yTX4Y062JZMupht1T+IEgbqBj4aQeQ1z2SH4VHWKNtWtppk4kz9gYyUiMWqx6tNSw=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz"
@@ -5771,7 +5776,7 @@
   "resolved" "https://registry.npmjs.org/react-native-voice/-/react-native-voice-0.3.0.tgz"
   "version" "0.3.0"
 
-"react-native@*", "react-native@>=0.55", "react-native@0.62.2":
+"react-native@*", "react-native@>=0.14.0", "react-native@>=0.55", "react-native@0.62.2":
   "integrity" "sha512-gADZZ3jcm2WFTjh8CCBCbl5wRSbdxqZGd+8UpNwLQFgrkp/uHorwAhLNqcd4+fHmADgPBltNL0uR1Vhv47zcOw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.62.2.tgz"
   "version" "0.62.2"

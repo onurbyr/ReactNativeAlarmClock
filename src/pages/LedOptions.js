@@ -12,6 +12,7 @@ import LedColor from './LedColor'
 import LedTimer from './LedTimer'
 import LedBrightness from './LedBrightness'
 import LedFade from './LedFade'
+import LedModes from './LedModes'
 
 
 function sendData(value){
@@ -106,7 +107,8 @@ function LedSettings({navigation}) {
                         <IconMaterialIcons name="brightness-6" type="MaterialIcons" size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Parlaklık Ayarla</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingsInside}>
+                    <TouchableOpacity style={styles.settingsInside}
+                    onPress={() => navigation.navigate('LedModes')}>
                          <Icon name="light-bulb"size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Işık Modları</Text>
                     </TouchableOpacity>
@@ -209,6 +211,7 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedTimer" options={{ title: 'Kapanma Süresi Belirle',headerTintColor: '#656262' }}  component={LedTimer} />
         <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
         <HomeStack.Screen name="LedFade" options={{ title: 'Solma Efekti',headerTintColor: '#656262' }}  component={LedFade} />
+        <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262' }}  component={LedModes} />
       </HomeStack.Navigator>
     );
   }
