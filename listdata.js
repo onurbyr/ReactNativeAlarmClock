@@ -31,26 +31,26 @@ const ViewAllUser = () => {
     return (
       <View 
         key={item.user_id}
-        style={{backgroundColor: 'white', padding: 20}}>
+        style={{backgroundColor: 'white', padding: 20,flex:1}}>
         <Text>Id: {item.id}</Text>
         <Text>Name: {item.name}</Text>
         <Text>Color: {item.color}</Text>
+        <Text>Brightness: {item.brightness}</Text>
       </View>
     );
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 2,flexDirection:'row'}}>
           <FlatList
+             numColumns={2}
             data={flatListItems}
             ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => listItemView(item)}
           />
         </View>
-      </View>
     </SafeAreaView>
   );
 };

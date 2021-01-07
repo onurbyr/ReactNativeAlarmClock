@@ -14,6 +14,7 @@ import LedBrightness from './LedBrightness'
 import LedFade from './LedFade'
 import LedModes from './LedModes'
 import listdata from '../../listdata.js'  
+import LedModesAdd from './LedModesAdd'
 
 
 function sendData(value){
@@ -213,6 +214,17 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
         <HomeStack.Screen name="LedFade" options={{ title: 'Solma Efekti',headerTintColor: '#656262' }}  component={LedFade} />
         <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262'}}  component={LedModes} />
+        <HomeStack.Screen
+        name="LedModesAdd" 
+        options={{ 
+        title: 'Led Modu Ekle',
+        headerTintColor: '#656262',
+        //gestureEnabled:true,
+        //gestureDirection:"horizontal",
+        ...TransitionPresets.SlideFromRightIOS
+        }}
+        component={LedModesAdd} />
+        
         {/* DeleteLater */}
         <HomeStack.Screen 
         options={{
