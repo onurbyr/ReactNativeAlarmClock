@@ -27,28 +27,31 @@ const ViewAllUser = () => {
     );
   };
 
-  let listItemView = (item) => {
+  let listItemView = (item,index) => {
     return (
       <View 
         key={item.user_id}
-        style={{backgroundColor: 'white', padding: 20,flex:1}}>
+        style={[{ backgroundColor: 'white', flex: 1,margin:20 }, index%2==0 ? { marginRight: 5 } : { marginLeft: 5 } ]}
+
+        >
         <Text>Id: {item.id}</Text>
         <Text>Name: {item.name}</Text>
         <Text>Color: {item.color}</Text>
         <Text>Brightness: {item.brightness}</Text>
+        <Text>Image: {item.image}</Text>
       </View>
     );
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1 ,backgroundColor:'#F5FCFF'}}>
         <View style={{flex: 2,flexDirection:'row'}}>
           <FlatList
-             numColumns={2}
+            numColumns={2}
             data={flatListItems}
             ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => listItemView(item)}
+            renderItem={({item,index}) => listItemView(item,index)}
           />
         </View>
     </SafeAreaView>

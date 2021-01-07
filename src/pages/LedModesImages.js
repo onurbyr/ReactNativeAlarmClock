@@ -1,21 +1,27 @@
 import React from 'react'
 import { StyleSheet, Text, View,TouchableOpacity,Image,ScrollView } from 'react-native'
 
-function LedModesImages() {
+function LedModesImages({navigation}) {
     return (
         <ScrollView>
         <View style={styles.container}>
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'moon'
+            })}>
                 <Image
                 style={styles.image}
-                source={require('../images/half-moon.png')}
+                source={require('../images/moon.png')}
                 />
             </TouchableOpacity> 
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'brightness'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/brightness.png')}
@@ -24,7 +30,10 @@ function LedModesImages() {
             </View>
             
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'house'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/house.png')}
@@ -33,7 +42,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'sunrise'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/sunrise.png')}
@@ -42,7 +54,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'candle'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/candle.png')}
@@ -51,16 +66,22 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'dinner'
+            })}>
                 <Image
                 style={styles.image}
-                source={require('../images/romantic-dinner.png')}
+                source={require('../images/dinner.png')}
                 />
             </TouchableOpacity> 
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'bell'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/bell.png')}
@@ -69,7 +90,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'work'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/work.png')}
@@ -78,16 +102,22 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'lamp'
+            })}>
                 <Image
                 style={styles.image}
-                source={require('../images/table-lamp.png')}
+                source={require('../images/lamp.png')}
                 />
             </TouchableOpacity> 
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'clocks'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/clocks.png')}
@@ -96,7 +126,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'barbell'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/barbell.png')}
@@ -105,16 +138,22 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'controller'
+            })}>
                 <Image
                 style={styles.image}
-                source={require('../images/game-controller.png')}
+                source={require('../images/controller.png')}
                 />
             </TouchableOpacity> 
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'confetti'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/confetti.png')}
@@ -123,7 +162,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'music'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/music.png')}
@@ -132,7 +174,10 @@ function LedModesImages() {
             </View>
 
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => navigation.navigate('LedModesAdd',{
+                imagename:'popcorn'
+            })}>
                 <Image
                 style={styles.image}
                 source={require('../images/popcorn.png')}

@@ -217,9 +217,11 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262'}}  component={LedModes} />
         <HomeStack.Screen
         name="LedModesAdd" 
+        initialParams={{ imagename: "" }}
         options={{ 
         title: 'Led Modu Ekle',
         headerTintColor: '#656262',
+       
         //gestureEnabled:true,
         //gestureDirection:"horizontal",
         ...TransitionPresets.SlideFromRightIOS

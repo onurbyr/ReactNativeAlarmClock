@@ -1,20 +1,49 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View,TouchableOpacity,TextInput,ScrollView,ToastAndroid,Alert } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,ScrollView,ToastAndroid,Alert,Image } from 'react-native'
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ColorPicker } from 'react-native-color-picker'
 import Slider from '@react-native-community/slider';
 import {openDatabase} from 'react-native-sqlite-storage';
+import Images from '../components/Images';
 
 const db = openDatabase({name: 'SmartClock.db', createFromLocation: 1});
 
 
 
-function LedModesAdd({navigation}) {
+function LedModesAdd({navigation,route}) {
     const [name, setName] = useState('');
     const [colour, setColour] = useState('');
     const [brightness, setBrightness] = useState('');
+    const [display,setDisplay] = useState("flex");
+    const [displayNew,setDisplayNew] = useState("none");
+
+    const { imagename } = route.params;
+    
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            if (imagename=="")
+            {
+                setDisplay("flex")
+                setDisplayNew("none")
+            }
+            else 
+            {
+                setDisplay("none")
+                setDisplayNew("flex")
+            }
+
+          
+        });
+    
+        return unsubscribe;
+      }, [navigation,route]);
+
 
     function addMode(){
+        if (!imagename) {
+            alert('Lütfen resim seçiniz.');
+            return;
+          }
         if (!name) {
             alert('Lütfen isim alanını doldurun.');
             return;
@@ -30,8 +59,8 @@ function LedModesAdd({navigation}) {
 
           db.transaction(function (tx) {
             tx.executeSql(
-              'INSERT INTO ledmodes (name, color, brightness) VALUES (?,?,?)',
-              [name, colour, brightness],
+              'INSERT INTO ledmodes (name, color, brightness,image) VALUES (?,?,?,?)',
+              [name, colour, brightness,imagename],
               (tx, results) => {
                 console.log('Results', results.rowsAffected);
                 if (results.rowsAffected > 0) {
@@ -85,7 +114,8 @@ function LedModesAdd({navigation}) {
             <TouchableOpacity 
             onPress={() => navigation.navigate('LedModesImages')}
             style={styles.image}>
-            <IconMaterialIcons name="add" type="MaterialIcons" size={60} color="#F5FCFF" />
+            <IconMaterialIcons style={{display}} name="add" type="MaterialIcons" size={60} color="#F5FCFF" />
+            <Image style={{width:50,height:50,display:displayNew}}  source={Images[imagename]} />
             </TouchableOpacity>
             <Text style={styles.imageText}>Resim Ekle</Text>
 
