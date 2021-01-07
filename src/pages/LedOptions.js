@@ -15,6 +15,7 @@ import LedFade from './LedFade'
 import LedModes from './LedModes'
 import listdata from '../../listdata.js'  
 import LedModesAdd from './LedModesAdd'
+import LedModesImages from './LedModesImages'
 
 
 function sendData(value){
@@ -224,6 +225,17 @@ export default function LedOptions() {
         ...TransitionPresets.SlideFromRightIOS
         }}
         component={LedModesAdd} />
+
+        <HomeStack.Screen
+        name="LedModesImages" 
+        options={{ 
+        title: 'Mod Resmi Seç',
+        headerTintColor: '#656262',
+        gestureEnabled:true,
+        gestureDirection:"horizontal",
+        ...TransitionPresets.SlideFromRightIOS
+        }}
+        component={LedModesImages} />
         
         {/* DeleteLater */}
         <HomeStack.Screen 

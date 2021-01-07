@@ -82,7 +82,9 @@ function LedModesAdd({navigation}) {
     return (
         <View style={styles.container}>
             <ScrollView>
-            <TouchableOpacity style={styles.image}>
+            <TouchableOpacity 
+            onPress={() => navigation.navigate('LedModesImages')}
+            style={styles.image}>
             <IconMaterialIcons name="add" type="MaterialIcons" size={60} color="#F5FCFF" />
             </TouchableOpacity>
             <Text style={styles.imageText}>Resim Ekle</Text>
@@ -110,8 +112,6 @@ function LedModesAdd({navigation}) {
             minimumTrackTintColor="#FED842"
             maximumTrackTintColor="red"
             thumbTintColor={'#a28cde'}
-            //thumbImage={require('../images/brightness.png')}
-            //value={brightness}
             onSlidingComplete={value =>setBrightness(value)}
             />  
             
