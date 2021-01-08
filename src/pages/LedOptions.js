@@ -219,7 +219,7 @@ export default function LedOptions() {
         name="LedModesAdd" 
         initialParams={{ imagename: "" }}
         options={{ 
-        title: 'Led Modu Ekle',
+        title: 'Işık Modu Ekle',
         headerTintColor: '#656262',
        
         //gestureEnabled:true,
