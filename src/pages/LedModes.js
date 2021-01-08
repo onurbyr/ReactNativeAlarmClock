@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,TouchableOpacity, FlatList,SafeAreaView,Image,Di
 import {openDatabase} from 'react-native-sqlite-storage';
 import Images from '../components/Images';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IconFeather from 'react-native-vector-icons/Feather';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -39,8 +40,14 @@ function LedModes({navigation}) {
             <TouchableOpacity>
             <Image style={{width:100,height:100}}  source={Images[item.image]} />
             </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('LedModesEdit',{
+            modeid:item.id
+            })}
+            style={{flexDirection:'row'}}>
             <Text style={styles.flatNameText}>{item.name}</Text>
-
+            <IconFeather style={{marginTop:15,marginLeft:5}} name="arrow-down-right"size={15} color="#C0C0C0" />
+            </TouchableOpacity>
             
           </View>
         );
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
     flatNameText:{
         color:'#666666',
         marginTop:10,
-        fontSize:16
+        fontSize:16,
     }
 })
 

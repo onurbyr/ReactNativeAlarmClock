@@ -1,13 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View,TouchableOpacity,Image,ScrollView } from 'react-native'
 
-function LedModesImages({navigation}) {
+function LedModesImages({navigation,route}) {
+    const { whichpage } = route.params;
     return (
         <ScrollView>
         <View style={styles.container}>
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'moon'
             })}>
                 <Image
@@ -19,7 +20,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'brightness'
             })}>
                 <Image
@@ -31,7 +32,7 @@ function LedModesImages({navigation}) {
             
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'house'
             })}>
                 <Image
@@ -43,7 +44,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'sunrise'
             })}>
                 <Image
@@ -55,7 +56,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'candle'
             })}>
                 <Image
@@ -67,7 +68,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'dinner'
             })}>
                 <Image
@@ -79,7 +80,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'bell'
             })}>
                 <Image
@@ -91,7 +92,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'work'
             })}>
                 <Image
@@ -103,7 +104,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'lamp'
             })}>
                 <Image
@@ -115,7 +116,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'clocks'
             })}>
                 <Image
@@ -127,7 +128,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'barbell'
             })}>
                 <Image
@@ -139,7 +140,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'controller'
             })}>
                 <Image
@@ -151,7 +152,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'confetti'
             })}>
                 <Image
@@ -163,7 +164,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'music'
             })}>
                 <Image
@@ -175,7 +176,7 @@ function LedModesImages({navigation}) {
 
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('LedModesAdd',{
+            onPress={() => navigation.navigate(whichpage,{
                 imagename:'popcorn'
             })}>
                 <Image

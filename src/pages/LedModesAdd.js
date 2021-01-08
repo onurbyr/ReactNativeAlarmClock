@@ -112,7 +112,9 @@ function LedModesAdd({navigation,route}) {
         <View style={styles.container}>
             <ScrollView>
             <TouchableOpacity 
-            onPress={() => navigation.navigate('LedModesImages')}
+            onPress={() => navigation.navigate('LedModesImages',{
+            whichpage:"LedModesAdd"
+            })}
             style={styles.image}>
             <IconMaterialIcons style={{display}} name="add" type="MaterialIcons" size={60} color="#F5FCFF" />
             <Image style={{width:50,height:50,display:displayNew}}  source={Images[imagename]} />
