@@ -71,6 +71,24 @@ function LedModesEdit({navigation,route}) {
   }, [navigation,route]);
 
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+        onPress={deleteMode}>
+            <Image
+            style={{width:30, height:30,marginRight:20}}
+            source={require('../images/delete.png')}
+            />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
+
+
+
+
   
   function updateAllStates(name,color,brightness,image) {
     setName(name);
@@ -140,6 +158,19 @@ function LedModesEdit({navigation,route}) {
     ToastAndroid.show('Renk Seçildi', ToastAndroid.SHORT);
     }
 
+    function deleteMode () {
+        db.transaction((tx) => {
+          tx.executeSql(
+            'DELETE FROM ledmodes where id=?',
+            [modeid],
+            (tx, results) => {
+                navigation.navigate('LedModes')
+                ToastAndroid.show('Mod Başarı ile Silindi', ToastAndroid.SHORT);
+            },
+          );
+        });
+      };
+
 
 
 
@@ -190,6 +221,8 @@ function LedModesEdit({navigation,route}) {
         >
             <Text style={styles.saveButtonText}>Kaydet</Text>
         </TouchableOpacity>
+
+
         </ScrollView>
         
         
