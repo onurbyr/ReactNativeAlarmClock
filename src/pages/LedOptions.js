@@ -21,11 +21,6 @@ import LedModesEdit from './LedModesEdit'
 
 function sendData(value){
     BluetoothSerial.write(value)
-    .then((res) => {
-      console.log(res);
-      console.log('Successfuly wrote to device')
-    })
-    .catch((err) => console.log(err.message))
 }
 
 

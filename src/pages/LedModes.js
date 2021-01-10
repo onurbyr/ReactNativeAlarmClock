@@ -4,6 +4,7 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import Images from '../components/Images';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
+import BluetoothSerial from 'react-native-bluetooth-serial'
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -32,12 +33,19 @@ function LedModes({navigation}) {
       }, [navigation]);
 
 
+      function setMode(item){
+          var modValue="m"+item.color+","+item.brightness+")";
+          BluetoothSerial.write(modValue)
+      }
+
+
       function listItemView (item){
         return (
           <View 
             key={item.id}
             style={styles.buttonWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>setMode(item)}>
             <Image style={{width:100,height:100}}  source={Images[item.image]} />
             </TouchableOpacity>
             <TouchableOpacity

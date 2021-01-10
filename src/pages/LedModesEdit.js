@@ -184,7 +184,7 @@ function LedModesEdit({navigation,route}) {
         style={styles.image}>
         <Image style={{width:50,height:50}}  source={Images[image]} />
         </TouchableOpacity>
-        <Text style={styles.imageText}>Resim Ekle</Text>
+        <Text style={styles.imageText}>Resim</Text>
 
         <Text style={styles.text}>İsim</Text>
         <TextInput

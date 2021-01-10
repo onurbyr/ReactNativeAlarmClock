@@ -104,6 +104,11 @@ void loop() {
       {
          fadeEffect();
       }
+      //modes
+       else if (Val.charAt(0)=='m')
+      {
+         setMode();
+      }
       else{
           commaIndex();
           lightRGB();  
@@ -244,6 +249,38 @@ void ledTimer(){
 
    
     
+  }
+
+
+  void setMode(){
+    Val.remove(0,1);
+
+    int commaIndex = Val.indexOf(',');
+    int secondCommaIndex = Val.indexOf(',', commaIndex + 1);
+    int thirdCommaIndex = Val.indexOf(',', secondCommaIndex + 1);
+    int fourthCommaIndex = Val.indexOf(',', thirdCommaIndex + 1);
+
+    String firstValue = Val.substring(0, commaIndex);
+    String secondValue = Val.substring(commaIndex + 1, secondCommaIndex);
+    String thirdValue = Val.substring(secondCommaIndex+1,thirdCommaIndex);
+    String fourthValue = Val.substring(thirdCommaIndex+1,fourthCommaIndex);
+
+    rvalue = firstValue.toInt();
+    gvalue = secondValue.toInt();
+    bvalue = thirdValue.toInt();
+
+    brightness=float(fourthValue.toInt());
+
+
+    rvalue=(float)(brightness/100)*rvalue;
+    gvalue=(float)(brightness/100)*gvalue;
+    bvalue=(float)(brightness/100)*bvalue;
+
+    lightRGB();
+
+    Val=firstValue+','+secondValue+','+thirdValue;
+    RGB_Previous = Val;
+        
   }
 
 
