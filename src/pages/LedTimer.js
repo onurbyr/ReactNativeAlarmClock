@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
         color:'#3D525F'
     },
     spinner: {
-        minWidth: 300
+        minWidth: 300,
+        maxHeight:50
     },
     offButton:{
         marginTop:10,

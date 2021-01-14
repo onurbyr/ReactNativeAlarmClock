@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface ArduinoLedTests : XCTestCase
+@interface SmartClockTests : XCTestCase
 
 @end
 
-@implementation ArduinoLedTests
+@implementation SmartClockTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

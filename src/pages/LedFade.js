@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     spinner: {
         marginTop:10,
         minWidth: 175,
+        maxHeight:60
     }
 })
 
