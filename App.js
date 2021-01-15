@@ -26,7 +26,7 @@ function MyTabs() {
           component={BluetoothConnection}
           options={{
               tabBarIcon: ({ color, size }) => (
-                <IconFeather name="bluetooth" color={color} size={size} />
+                <IconFeather name="bluetooth" color={color} size={20} />
               ),
             }}
           />
@@ -35,7 +35,7 @@ function MyTabs() {
           component={LedOptions}
           options={{
               tabBarIcon: ({ color, size }) => (
-                <IconEntypo name="light-bulb" color={color} size={size} />
+                <IconEntypo name="light-bulb" color={color} size={20} />
               ),
             }}
           />
@@ -44,7 +44,7 @@ function MyTabs() {
           component={AlarmClock}
           options={{
               tabBarIcon: ({ color, size }) => (
-                <IconMaterialCommunityIcons name="alarm" color={color} size={size} />
+                <IconMaterialCommunityIcons name="alarm" color={color} size={20} />
               ),
             }}
           />
