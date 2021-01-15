@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   FlatList,
   Switch,
+  ToastAndroid
 } from 'react-native';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {openDatabase} from 'react-native-sqlite-storage';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 const db = openDatabase({name: 'SmartClock.db', createFromLocation: 1});
 
@@ -75,6 +77,18 @@ function AlarmClock() {
     });
   }
 
+  function deleteAlarm (id) {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'DELETE FROM alarmtimes where id=?',
+        [id],
+        (tx, results) => {
+            //ToastAndroid.show('Başarı ile Silindi', ToastAndroid.SHORT);
+        },
+      );
+    });
+  };
+
   function toggleSwitch(prev, id) {
     update((!prev).toString(), id);
     listAlarms();
@@ -118,6 +132,26 @@ function AlarmClock() {
     );
   }
 
+
+  const renderHiddenItem = (item,rowMap,index) => (
+    <View style={styles.rowBack}>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        // onPress={() => deleteRow(rowMap, data.item.key)}
+        onPress={() => {
+          {
+            rowMap[index].closeRow()
+            deleteAlarm(item.id)
+            listAlarms()
+          }
+         
+        }}>
+        <Text style={styles.backTextWhite}>Delete</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+
   return (
     <View style={styles.container}>
       <DateTimePickerModal
@@ -135,10 +169,13 @@ function AlarmClock() {
           color="#F5FCFF"
         />
       </TouchableOpacity>
-      <FlatList
+      <SwipeListView
         data={flatListItems}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => listItemView(item)}
+        renderHiddenItem={({item,index},rowMap)=>renderHiddenItem(item,rowMap,index)}
+        rightOpenValue={-75}
+        disableRightSwipe
       />
     </View>
   );
@@ -164,6 +201,29 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: '#666666',
     marginRight: '60%',
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+  },
+  backRightBtn: {
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: 'red',
+    right: 0,
   },
 });
 
