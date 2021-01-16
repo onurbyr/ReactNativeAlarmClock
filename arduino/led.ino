@@ -145,6 +145,10 @@ void loop() {
       {
          ldrMode = false;
       }
+      else if (Val.charAt(0)=='o')
+      {
+         mySerial.print(ldrMode);
+      }
       else{
           commaIndex();
           lightRGB();  

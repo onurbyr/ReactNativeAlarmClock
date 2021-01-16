@@ -213,7 +213,7 @@ function AlarmClock({navigation}) {
           }
          
         }}>
-        <Text style={styles.backTextWhite}>Delete</Text>
+        <Text style={styles.backTextWhite}>Sil</Text>
       </TouchableOpacity>
     </View>
   );
