@@ -13,10 +13,10 @@ import LedTimer from './LedTimer'
 import LedBrightness from './LedBrightness'
 import LedFade from './LedFade'
 import LedModes from './LedModes'
-import listdata from '../../listdata.js'  
 import LedModesAdd from './LedModesAdd'
 import LedModesImages from './LedModesImages'
 import LedModesEdit from './LedModesEdit'
+import LedAutoBrightness from './LedAutoBrightness'
 
 
 function sendData(value){
@@ -103,7 +103,7 @@ function LedSettings({navigation}) {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.settingsInside}
                     onPress={() => navigation.navigate('LedBrightness')}>
-                        <IconMaterialIcons name="brightness-6" type="MaterialIcons" size={35} color="#C63F7A" />
+                        <IconMaterialCommunityIcons name="brightness-percent" type="MaterialIcons" size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Parlaklık Ayarla</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.settingsInside}
@@ -111,9 +111,10 @@ function LedSettings({navigation}) {
                          <Icon name="light-bulb"size={35} color="#C63F7A" />
                         <Text style={styles.settingsInsideText}>Işık Modları</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingsInside}>
-                        <IconFeather name="camera"  size={35} color="#C63F7A" />
-                        <Text style={styles.settingsInsideText}>Renk Algıla</Text>
+                    <TouchableOpacity style={styles.settingsInside}
+                    onPress={() => navigation.navigate('LedAutoBrightness')}>
+                        <IconMaterialCommunityIcons name="brightness-auto"  size={35} color="#C63F7A" />
+                        <Text style={styles.settingsInsideText}>Otomatik Parlaklık</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.settingsInside}
                     onPress={() => navigation.navigate('LedFade')}>
@@ -211,6 +212,7 @@ export default function LedOptions() {
         <HomeStack.Screen name="LedBrightness" options={{ title: 'Parlaklık Ayarla',headerTintColor: '#656262' }}  component={LedBrightness} />
         <HomeStack.Screen name="LedFade" options={{ title: 'Solma Efekti',headerTintColor: '#656262' }}  component={LedFade} />
         <HomeStack.Screen name="LedModes" options={{ title: 'Işık Modları',headerTintColor: '#656262'}}  component={LedModes} />
+        <HomeStack.Screen name="LedAutoBrightness" options={{ title: 'Otomatik Parlaklık',headerTintColor: '#656262'}}  component={LedAutoBrightness} />
         <HomeStack.Screen
         name="LedModesAdd" 
         initialParams={{ imagename: "" }}
@@ -248,16 +250,6 @@ export default function LedOptions() {
         }}
         component={LedModesEdit} />
         
-        {/* DeleteLater */}
-        <HomeStack.Screen 
-        options={{
-        gestureEnabled:true,
-        gestureDirection:"horizontal",
-        ...TransitionPresets.SlideFromRightIOS
-        }}
-        name="ListData" component={listdata} />  
-         {/* DeleteLater */}
-       
       </HomeStack.Navigator>
     );
   }

@@ -9,6 +9,7 @@ const int B = 11;
 
 const int speakerPin=13;
 const int button=12;
+const int LDRPin = A0;
 
 String Val = ""; 
 String RGB_Previous = "255,255,255"; 
@@ -44,6 +45,8 @@ String alarm4="";
 String alarm5="";
 
 unsigned long lastTime = 0;
+unsigned long lastTime2 = 0;
+boolean ldrMode = false;
  
 void setup() {
   pinMode (R, OUTPUT);
@@ -51,6 +54,7 @@ void setup() {
   pinMode (B, OUTPUT);
   pinMode (speakerPin,OUTPUT);
   pinMode(button, INPUT);
+  pinMode(LDRPin, INPUT);
   analogWrite(R, 255);
   analogWrite(G, 255);
   analogWrite(B, 255);
@@ -89,8 +93,8 @@ void loop() {
       //set timer
       else if (Val.charAt(0)=='t')
       {
+        ldrMode = false;
         ledTimer();
-        
       }
       //check timer
       else if (Val.charAt(0)=='x')
@@ -105,7 +109,8 @@ void loop() {
       //brightness
        else if (Val.charAt(0)=='b')
       {
-         ledBrightness();
+        ldrMode = false;
+        ledBrightness();
       }
       //check brightness
       else if (Val==B2)
@@ -115,17 +120,30 @@ void loop() {
       //fadeeffect
        else if (Val.charAt(0)=='f')
       {
-         fadeEffect();
+        ldrMode = false;
+        fadeEffect();
       }
       //modes
        else if (Val.charAt(0)=='m')
       {
-         setMode();
+        ldrMode = false;
+        setMode();
       }
-      //modes
+      //alarm
       else if (Val.charAt(0)=='a')
       {
          setAlarm();
+      }
+      //ldr mode
+      else if (Val.charAt(0)=='l')
+      {
+        fadeMode = false;
+        ldrMode = true;
+      }
+      //ldr mode off
+      else if (Val.charAt(0)=='n')
+      {
+         ldrMode = false;
       }
       else{
           commaIndex();
@@ -369,6 +387,63 @@ void ledTimer(){
       delay(30);
     }
 
+
+
+
+    if (millis() - lastTime2 > 1000)
+    {
+      if (ldrMode)
+      {
+      int bramount = analogRead(LDRPin);
+      if (bramount>100)
+      {
+        brightness=100;
+      }
+      else if ((bramount >80) && (bramount<= 100))
+      {
+        brightness=75;
+      }
+      else if ((bramount >60) && (bramount<= 80))
+      {
+        brightness=50;
+      }
+      else if ((bramount >30) && (bramount<= 60))
+      {
+        brightness=35;
+      }
+      else if ((bramount >0) && (bramount<= 30))
+      {
+        brightness=25;
+      }
+
+      String Val2 = RGB_Previous; 
+
+      int commaIndex = Val2.indexOf(',');
+      int secondCommaIndex = Val2.indexOf(',', commaIndex + 1);
+      int thirdCommaIndex = Val2.indexOf(',', secondCommaIndex + 1);
+
+      String firstValue = Val2.substring(0, commaIndex);
+      String secondValue = Val2.substring(commaIndex + 1, secondCommaIndex);
+      String thirdValue = Val2.substring(secondCommaIndex+1,thirdCommaIndex);
+
+      rvalue = firstValue.toInt();
+      gvalue = secondValue.toInt();
+      bvalue = thirdValue.toInt();
+
+      rvalue=(float)(brightness/100)*rvalue;
+      gvalue=(float)(brightness/100)*gvalue;
+      bvalue=(float)(brightness/100)*bvalue;
+
+      analogWrite(R, 255-rvalue);
+      analogWrite(G, 255-gvalue);
+      analogWrite(B, 255-bvalue);
+
+      }
+      lastTime2 = millis();
+    }
+
+
+
      
 
 
@@ -430,12 +505,6 @@ void ledTimer(){
 
 
 
-    
-
-    
-
- 
-    
     
 }
 
