@@ -7,6 +7,8 @@ const int R = 9;
 const int G = 10;
 const int B = 11;  
 
+const int speakerPin=13;
+const int button=12;
 
 String Val = ""; 
 String RGB_Previous = "255,255,255"; 
@@ -33,11 +35,22 @@ int fadebr = 0;
 int fadeAmount = 1;
 int fadecolor = R;
 boolean fadeMode = false;
+
+
+String alarm1="";
+String alarm2="";
+String alarm3="";
+String alarm4="";
+String alarm5="";
+
+unsigned long lastTime = 0;
  
 void setup() {
   pinMode (R, OUTPUT);
   pinMode (G, OUTPUT);
   pinMode (B, OUTPUT);
+  pinMode (speakerPin,OUTPUT);
+  pinMode(button, INPUT);
   analogWrite(R, 255);
   analogWrite(G, 255);
   analogWrite(B, 255);
@@ -45,7 +58,7 @@ void setup() {
   mySerial.begin(9600);
   Val.reserve(30);
  // saniye, dakika, saat, haftanın kaçıncı günü olduğu, ayın kaçıncı günü olduğu, ay, yıl
- //myRTC.setDS1302Time(0, 13, 2, 6, 2, 1, 2021); 
+ //myRTC.setDS1302Time(0, 8, 2, 6, 16, 1, 2021); 
 }
  
 void loop() {
@@ -109,6 +122,11 @@ void loop() {
       {
          setMode();
       }
+      //modes
+      else if (Val.charAt(0)=='a')
+      {
+         setAlarm();
+      }
       else{
           commaIndex();
           lightRGB();  
@@ -124,7 +142,7 @@ void loop() {
 
 
   doAlways();
-  
+
 
 
 } 
@@ -284,14 +302,44 @@ void ledTimer(){
   }
 
 
+  void setAlarm(){
+    Val.remove(0,1);
+    
+
+    int commaIndex = Val.indexOf(',');
+    int secondCommaIndex = Val.indexOf(',', commaIndex + 1);
+    int thirdCommaIndex = Val.indexOf(',', secondCommaIndex + 1);
+    int fourthCommaIndex = Val.indexOf(',', thirdCommaIndex + 1);
+    int fifthCommaIndex = Val.indexOf(',', fourthCommaIndex + 1);
+
+    String firstValue = Val.substring(0, commaIndex)+":00";
+    String secondValue = Val.substring(commaIndex + 1, secondCommaIndex)+":00";
+    String thirdValue = Val.substring(secondCommaIndex+1,thirdCommaIndex)+":00";
+    String fourthValue = Val.substring(thirdCommaIndex+1,fourthCommaIndex)+":00";
+    String fifthValue = Val.substring(fourthCommaIndex+1,fifthCommaIndex)+":00";
+
+
+    alarm1=firstValue;
+    alarm2=secondValue;
+    alarm3=thirdValue;
+    alarm4=fourthValue;
+    alarm5=fifthValue;
+
+
+    
+
+
+    
+  }
+
+
 
 
 
 
   void doAlways(){
-      myRTC.updateTime();
-
-
+    myRTC.updateTime();
+      
     if ((offHour==myRTC.hours)&&(offMin==myRTC.minutes)&&(offSec==myRTC.seconds))
     {
       Val = "0,0,0";
@@ -320,10 +368,76 @@ void ledTimer(){
       }
       delay(30);
     }
-    
-    
-    
+
+     
+
+
+
+    if (millis() - lastTime > 1000)
+    {
+
+      String daymonth = String(myRTC.dayofmonth);
+      String mnth = String(myRTC.month);
+      String yr = String(myRTC.year);
+
+      String hr = String(myRTC.hours);
+      String mnt = String(myRTC.minutes);
+      String sec = String(myRTC.seconds);
+
+      if (myRTC.dayofmonth<10)
+      {
+        daymonth='0'+daymonth;
+      }
+      if(myRTC.month<10)
+      {
+        mnth='0'+mnth;
+      }
+
+      if (myRTC.hours<10)
+      {
+        hr='0'+hr;
+      }
+      if (myRTC.minutes<10)
+      {
+        mnt='0'+mnt;
+      }
+      if (myRTC.seconds<10)
+      {
+        sec='0'+sec;
+      }
+
+      String date= daymonth+'/'+mnth+'/'+yr;
+
+      String time = hr+':'+mnt+':'+sec;
+
+
+      if ((time==alarm1)||(time==alarm2)||(time==alarm3)||(time==alarm4)||(time==alarm5))
+      {
+        tone(speakerPin, 493);
+      }
+     
+      lastTime = millis(); 
     }
+
+
+
+    if(digitalRead(button)==1)
+    { 
+      noTone(speakerPin);
+    }
+
+
+
+
+
+    
+
+    
+
+ 
+    
+    
+}
 
 
 

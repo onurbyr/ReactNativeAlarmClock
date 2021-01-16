@@ -6,26 +6,47 @@ import {
   TouchableOpacity,
   FlatList,
   Switch,
-  ToastAndroid
+  ToastAndroid,
+  TextComponent
 } from 'react-native';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {openDatabase} from 'react-native-sqlite-storage';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import BluetoothSerial from 'react-native-bluetooth-serial'
 
 const db = openDatabase({name: 'SmartClock.db', createFromLocation: 1});
 
-function AlarmClock() {
+function AlarmClock({navigation}) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [flatListItems, setFlatListItems] = useState([]);
   const [isEnabled, setIsEnabled] = useState(false);
+  const [count, setCount] = useState(-1);
 
-  useEffect(() => {
-    listAlarms();
+
+
+  //When focused to tab
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      listAlarms();
+    });
+
+    return unsubscribe;
   }, []);
 
+
+
   function showDatePicker() {
-    setDatePickerVisibility(true);
+
+    if (count>=5)
+    {
+      ToastAndroid.show('Maksimum 5 adet alarm kayıt edilebilir.', ToastAndroid.SHORT)
+    }
+    else 
+    {
+      setDatePickerVisibility(true);
+    }
+    
   }
 
   function hideDatePicker() {
@@ -33,7 +54,12 @@ function AlarmClock() {
   }
 
   function handleConfirm(date) {
-    var timevar = date.getHours() + ':' + date.getMinutes();
+    var hours = date.getHours() ;
+    var minutes= date.getMinutes();
+
+    hours < 10 ? (hours = '0' + hours) : (hours = hours);
+    minutes < 10 ? (minutes = '0' + minutes) : (minutes = minutes);
+    var timevar = hours + ':' + minutes;
     addAlarm(timevar);
     hideDatePicker();
     listAlarms();
@@ -54,9 +80,8 @@ function AlarmClock() {
     db.transaction(function (tx) {
       tx.executeSql(
         'INSERT INTO alarmtimes (time, isEnabled) VALUES (?,?)',
-        [timevar, 'true'],
+        [timevar, 'false'],
         (tx, results) => {
-          console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
           } else alert('Alarm Kaydedilmedi');
         },
@@ -94,16 +119,58 @@ function AlarmClock() {
     listAlarms();
   }
 
-  function timeAddZero(time){
-    var hours = time.split(':')[0];
-    var minutes = time.split(':')[1];
-    hours < 10 ? (hours = 0 + hours) : (hours = hours);
-    minutes < 10 ? (minutes = 0 + minutes) : (minutes = minutes);
-    var time = hours + ':' + minutes;
-    return time;
+  // function timeAddZero(time){
+  //   var hours = time.split(':')[0];
+  //   var minutes = time.split(':')[1];
+  //   hours < 10 ? (hours = 0 + hours) : (hours = hours);
+  //   minutes < 10 ? (minutes = 0 + minutes) : (minutes = minutes);
+  //   var time = hours + ':' + minutes;
+  //   return time;
+  // }
+
+
+  var e=1
+  var times=[]
+  function sendAlarms(item){
+    if (item.isEnabled == 'true') {
+      times.push(item.time);
+      //times.indexOf(item.time) === -1 ? times.push(item.time) : console.log("This item already exists");
+    }
+    if (item.isEnabled == 'false') {
+      for (var i = 0; i < times.length; i++) {
+        if (times[i] == item.time) {
+          times.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT COUNT(*) as cnt FROM alarmtimes;',
+        [],
+        (tx, results) => {
+          var count=results.rows.item(0).cnt;
+          setCount(count)
+        },
+      );
+    });
+
+    if (e===count)
+    {
+      var sendData="a"+times.toString()+")";
+      BluetoothSerial.write(sendData)
+    }
+
+    e++
+
   }
 
+
+
   function listItemView(item) {
+    sendAlarms(item);
+    
     return (
       <View
         key={item.id}
@@ -117,7 +184,8 @@ function AlarmClock() {
           borderTopWidth: 0.4,
         }}>
         <Text style={styles.time}>
-          {timeAddZero(item.time)}
+          {/* {timeAddZero(item.time)} */}
+          {item.time}
         </Text>
         <Switch
           style={styles.isEnabled}
@@ -137,7 +205,6 @@ function AlarmClock() {
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
-        // onPress={() => deleteRow(rowMap, data.item.key)}
         onPress={() => {
           {
             rowMap[index].closeRow()
@@ -150,6 +217,7 @@ function AlarmClock() {
       </TouchableOpacity>
     </View>
   );
+
 
 
   return (
