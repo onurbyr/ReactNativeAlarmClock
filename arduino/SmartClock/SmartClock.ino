@@ -1,15 +1,25 @@
 #include <virtuabotixRTC.h>
-#include <SoftwareSerial.h>
+#include <Adafruit_GFX.h>  
+#include <Adafruit_ST7735.h>  
+#include <virtuabotixRTC.h> 
 
-SoftwareSerial mySerial(8,7); // RX,TX
+
+
+   
+#define TFT_RST    -1  
+#define TFT_DC     2
+#define TFT_CS     3
+
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 
 const int R = 9;
 const int G = 10;
-const int B = 11;  
+const int B = 5;  
 
-const int speakerPin=13;
-const int button=12;
+const int speakerPin=7;
+const int button=8;
 const int LDRPin = A0;
+const int lm35 = A1;
 
 String Val = ""; 
 String RGB_Previous = "255,255,255"; 
@@ -17,7 +27,7 @@ String ON = "ON";
 String OFF = "OFF"; 
 boolean Val_Completed = false;
 //RTC
-virtuabotixRTC myRTC(4, 5, 6);
+virtuabotixRTC myRTC(4, 12, 6);
 
 
 int offSec=-1;
@@ -47,6 +57,11 @@ String alarm5="";
 unsigned long lastTime = 0;
 unsigned long lastTime2 = 0;
 boolean ldrMode = false;
+
+
+float voltage = 0;
+float temp = 0;
+int inc_data = 0;
  
 void setup() {
   pinMode (R, OUTPUT);
@@ -59,15 +74,17 @@ void setup() {
   analogWrite(G, 255);
   analogWrite(B, 255);
   Serial.begin(9600); 
-  mySerial.begin(9600);
   Val.reserve(30);
  // saniye, dakika, saat, haftanın kaçıncı günü olduğu, ayın kaçıncı günü olduğu, ay, yıl
  //myRTC.setDS1302Time(0, 8, 2, 6, 16, 1, 2021); 
+ tft.initR(INITR_BLACKTAB);
+ tft.fillScreen(ST7735_BLACK);
+ tft.setTextWrap(false);
 }
  
 void loop() {
-  while(mySerial.available()){
-    char ReadChar = (char)mySerial.read();
+  while(Serial.available()){
+    char ReadChar = (char)Serial.read();
  
     if(ReadChar == ')'){
       Val_Completed = true;
@@ -115,7 +132,7 @@ void loop() {
       //check brightness
       else if (Val==B2)
       {
-         mySerial.print(brightness);
+         Serial.print(brightness);
       }
       //fadeeffect
        else if (Val.charAt(0)=='f')
@@ -147,7 +164,7 @@ void loop() {
       }
       else if (Val.charAt(0)=='o')
       {
-         mySerial.print(ldrMode);
+         Serial.print(ldrMode);
       }
       else{
           commaIndex();
@@ -220,9 +237,9 @@ void ledTimer(){
     {
       remainSec=offSec+(60-myRTC.seconds);
     }
-    mySerial.print(remainMin-1);
-    mySerial.print(",");
-    mySerial.print(remainSec);
+    Serial.print(remainMin-1);
+    Serial.print(",");
+    Serial.print(remainSec);
     }    
     
 
@@ -454,6 +471,21 @@ void ledTimer(){
 
     if (millis() - lastTime > 1000)
     {
+      inc_data = analogRead(lm35);
+      voltage = (inc_data / 1023.0) * 5000;
+      temp = voltage / 10.0;
+
+
+      tft.setCursor(13, 10);  
+      tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);  
+      tft.setTextSize(1);  
+      tft.println("Sicaklik:"); 
+
+
+      tft.setCursor(70, 10); 
+      tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);  
+      tft.setTextSize(1);  
+      tft.println(temp);  
 
       String daymonth = String(myRTC.dayofmonth);
       String mnth = String(myRTC.month);
@@ -494,6 +526,20 @@ void ledTimer(){
       {
         tone(speakerPin, 493);
       }
+
+
+      tft.setCursor(5, 50);  
+      tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);  
+      tft.setTextSize(2);  
+      tft.println(date);  
+
+
+      tft.setCursor(15, 80);  
+      tft.setTextColor(ST7735_YELLOW, ST7735_BLACK); 
+      tft.setTextSize(2); 
+      tft.println(time);  
+
+      
      
       lastTime = millis(); 
     }
@@ -503,7 +549,10 @@ void ledTimer(){
     if(digitalRead(button)==1)
     { 
       noTone(speakerPin);
+      Serial.println("asd");
     }
+
+
 
 
 
